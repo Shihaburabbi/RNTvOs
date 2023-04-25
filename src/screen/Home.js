@@ -8,17 +8,21 @@ import {
   Image,
   Dimensions,
   PixelRatio,
+  TextInput,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {Picker} from '@react-native-picker/picker';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import Autocomplete from 'react-native-autocomplete-input';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Home = () => {
+const Home = props => {
+  const [selectedLocation, setSelectedLocation] = useState();
   return (
     <ScrollView>
       <SafeAreaView>
@@ -106,7 +110,9 @@ const Home = () => {
                     TOTAL
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.main_btn}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('FirstStep')}
+                  style={styles.main_btn}>
                   <Text style={[styles.main_btn_text, {color: 'gray'}]}>+</Text>
                   <Text style={[styles.main_btn_text, {fontSize: hp('0.9%')}]}>
                     NEW DEVICE
@@ -366,7 +372,80 @@ const Home = () => {
               </View>
             </View>
             <View style={styles.second_right_container}>
-
+              <Image
+                source={require('../asstes/fabric.png')}
+                style={{height: 20, width: 80}}
+              />
+              <View style={styles.side_menu_view}>
+                <Image
+                  source={require('../asstes/search.png')}
+                  style={{height: 13, width: 13}}
+                />
+                <TextInput
+                  placeholder="Search by Device Name"
+                  placeholderTextColor="#000"
+                  style={styles.inputs}
+                />
+              </View>
+              <View
+                style={[
+                  styles.side_menu_view,
+                  {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  },
+                ]}>
+                <Text style={[styles.text, {paddingTop: 5}]}>
+                  Filter By Location
+                </Text>
+                <View style={styles.picker_view}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={selectedLocation}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedLocation(itemValue)
+                    }>
+                    <Picker.Item label="Click to Select" value="" />
+                    <Picker.Item label="Location1" value="1" />
+                    <Picker.Item label="Location2" value="2" />
+                  </Picker>
+                </View>
+              </View>
+              <View
+                style={[
+                  styles.side_menu_view,
+                  {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  },
+                ]}>
+                <Text style={[styles.text, {paddingTop: 5}]}>
+                  Select command and run
+                </Text>
+                <View style={styles.picker_view}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={selectedLocation}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedLocation(itemValue)
+                    }>
+                    <Picker.Item label="Click to Select" value="" />
+                    <Picker.Item label="command1" value="1" />
+                    <Picker.Item label="command2" value="2" />
+                  </Picker>
+                </View>
+              </View>
+              <TouchableOpacity
+                style={{
+                  height: 20,
+                  width: 80,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor:'lightgray',
+                  marginTop:5
+                }}>
+                <Text style={[styles.text]}>MEDIA LIBRARY</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -435,7 +514,7 @@ const styles = StyleSheet.create({
     width: '60%',
   },
   second_right_container: {
-    width: '20%',
+    width: '25%',
   },
   row: {
     flexDirection: 'row',
@@ -468,5 +547,57 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     elevation: 5,
     borderRadius: 10,
+  },
+  autocompleteContainer: {
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 0.5,
+    // height:30
+  },
+  descriptionContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  itemText: {
+    fontSize: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    margin: 2,
+  },
+  infoText: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  side_menu_view: {
+    backgroundColor: '#FFF',
+    // flex: 1,
+    marginTop: 10,
+    elevation: 5,
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 40,
+    paddingHorizontal: 2,
+    width: 80,
+  },
+  inputs: {
+    elevation: 1,
+    backgroundColor: '#FFF',
+    borderRadius: 2,
+    width: '80%',
+    // height: 18,
+    fontSize: wp('1%'),
+    paddingVertical: 5,
+  },
+  picker_view: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    borderBottomWidth: 1,
+    marginBottom: 5,
+  },
+  picker: {
+    width: 200,
+    color: '#000',
+    transform: [{scaleX: 0.45}, {scaleY: 0.45}],
   },
 });

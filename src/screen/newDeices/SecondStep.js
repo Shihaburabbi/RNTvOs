@@ -1,0 +1,132 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+  PixelRatio,
+  TextInput,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import Autocomplete from 'react-native-autocomplete-input';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const SecondStep = (props) => {
+  return (
+    <ScrollView>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
+        <View style={styles.row}>
+          <View style={{width: '70%', elevation: 5, backgroundColor: '#FFF'}}>
+            <Text style={styles.title}>Enter Activation Code</Text>
+            <View style={styles.dot_view}>
+              <View style={[styles.dot, {backgroundColor: 'green'}]} />
+              <View style={[styles.dot, {backgroundColor: 'green'}]} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
+            </View>
+
+            <View style={styles.dot_view}>
+              <TextInput
+                placeholder="X"
+                underlineColorAndroid="rgb(	211, 211, 211)"
+                style={{textAlign:'center',fontSize:30}}
+              />
+              <TextInput
+                placeholder="X"
+                underlineColorAndroid="rgb(	211, 211, 211)"
+                style={{textAlign:'center',fontSize:30}}
+              />
+              <TextInput
+                placeholder="X"
+                underlineColorAndroid="rgb(	211, 211, 211)"
+                style={{textAlign:'center',fontSize:30}}
+              />
+              <TextInput
+                placeholder="X"
+                underlineColorAndroid="rgb(	211, 211, 211)"
+                style={{textAlign:'center',fontSize:30}}
+              />
+            </View>
+            <Text style={styles.text}>
+              When a new devices is online, an activation code will be displayed
+              on the screen
+            </Text>
+          </View>
+          <View style={{width: '25%'}}>
+            <Image
+              source={require('../../asstes/fabric.png')}
+              style={{height: 25, width: 100}}
+            />
+            <Image
+              source={require('../../asstes/device.png')}
+              style={{height: 25, width: 100, marginTop: 10}}
+            />
+          </View>
+        </View>
+        <View style={[styles.row, {width: wp('70%')}]}>
+          <TouchableOpacity style={{padding: 5, backgroundColor: '#D3D3D3'}}>
+            <Text>START OVER</Text>
+          </TouchableOpacity>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity>
+              <Text>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ThirdStep')}
+              style={{padding: 5, backgroundColor: '#D3D3D3', marginLeft: 5}}>
+              <Text>NEXT</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+};
+
+export default SecondStep;
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    width: '100%',
+    padding: 10,
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: hp('2.5%'),
+    color: '#000',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  text: {
+    fontSize: hp('0.8%'),
+    color: '#000',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  dot: {
+    height: 10,
+    width: 10,
+    borderRadius: 10,
+    backgroundColor: '#90ee90',
+    marginHorizontal: 2,
+  },
+  dot_view: {
+    alignSelf: 'center',
+    paddingVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
